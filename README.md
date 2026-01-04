@@ -42,7 +42,7 @@ The project is built with a **mobile-first approach**, featuring a dynamic video
 ## 📂 Project Structure
 
 ~~~
-github-explorer/
+github-user-explorer/
 │
 ├── index.html       # Main application file
 ├── style.css        # Custom styles (Glassmorphism & Video)
