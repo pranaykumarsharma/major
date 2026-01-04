@@ -3,7 +3,7 @@
 
 > A modern, responsive web application to search and explore GitHub user profiles with a visually striking Glassmorphism UI.
 
-### 🌐 [**View Live Demo**](https://githubuserexplorer-nine.vercel.app)
+### 🌐 **View Live Demo** - https://githubuserexplorer-nine.vercel.app
 
 ---
 
