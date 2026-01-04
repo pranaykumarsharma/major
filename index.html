@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Explorer</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans text-gray-100 overflow-x-hidden bg-gray-900">
+
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <main class="relative z-10 min-h-screen flex flex-col items-center py-6 px-4 md:py-10">
+        
+        <header class="text-center mb-6 md:mb-8 animate-fade-in-down">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2 tracking-wide text-white drop-shadow-lg">
+                <i class="fab fa-github"></i> GitHub Explorer
+            </h1>
+            <p class="text-gray-300 text-sm md:text-base">Search users, view stats, and explore code.</p>
+        </header>
+
+        <div class="w-full max-w-xl glass-panel p-4 md:p-6 rounded-2xl shadow-2xl mb-8 animate-fade-in-up">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Enter GitHub Username..." 
+                    class="flex-1 bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 placeholder-gray-400"
+                >
+                <button 
+                    id="search-btn" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center gap-2 shadow-lg active:scale-95"
+                >
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <p id="error-msg" class="text-red-400 mt-3 text-sm hidden font-medium text-center"></p>
+        </div>
+
+        <div id="loader" class="hidden my-10">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+
+        <div id="profile-container" class="hidden w-full max-w-4xl animate-fade-in-up">
+            
+            <div class="glass-panel rounded-2xl p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20 pointer-events-none"></div>
+
+                <img id="user-avatar" src="" alt="Avatar" class="w-28 h-28 md:w-40 md:h-40 rounded-full border-4 border-blue-500 shadow-lg object-cover z-10 bg-gray-800 shrink-0">
+                
+                <div class="flex-1 text-center md:text-left z-10 w-full min-w-0">
+                    <div class="flex flex-col md:flex-row items-center md:items-baseline gap-2 md:gap-3 mb-2">
+                        <h2 id="user-name" class="text-2xl md:text-3xl font-bold text-white break-words"></h2>
+                        <a id="user-login" href="#" target="_blank" class="text-blue-400 text-base md:text-lg hover:underline break-all"></a>
+                    </div>
+                    
+                    <p id="user-bio" class="text-gray-300 mb-6 text-sm md:text-lg leading-relaxed"></p>
+                    
+                    <div class="grid grid-cols-3 gap-2 md:gap-4 mb-6 bg-gray-800 bg-opacity-50 p-3 md:p-4 rounded-xl border border-gray-700">
+                        <div class="text-center">
+                            <span class="block text-xl md:text-2xl font-bold text-white" id="user-public-repos">0</span>
+                            <span class="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">Repos</span>
+                        </div>
+                        <div class="text-center border-l border-gray-700">
+                            <span class="block text-xl md:text-2xl font-bold text-white" id="user-followers">0</span>
+                            <span class="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">Followers</span>
+                        </div>
+                        <div class="text-center border-l border-gray-700">
+                            <span class="block text-xl md:text-2xl font-bold text-white" id="user-following">0</span>
+                            <span class="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">Following</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center md:justify-start gap-x-4 md:gap-x-6 gap-y-2 text-sm text-gray-300">
+                        <span id="user-location" class="flex items-center gap-2 hidden"><i class="fas fa-map-marker-alt text-red-400"></i> <span class="truncate max-w-[150px]"></span></span>
+                        <span id="user-company" class="flex items-center gap-2 hidden"><i class="fas fa-building text-purple-400"></i> <span class="truncate max-w-[150px]"></span></span>
+                        <span id="user-blog" class="flex items-center gap-2 hidden"><i class="fas fa-link text-green-400"></i> <a href="#" target="_blank" class="hover:text-white transition truncate max-w-[150px]">Website</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 mb-6">
+                <h3 class="text-xl md:text-2xl font-bold text-white">Latest Repositories</h3>
+                <div class="h-1 flex-1 bg-gray-700 rounded-full"></div>
+            </div>
+
+            <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pb-10">
+                </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
