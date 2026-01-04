@@ -41,10 +41,14 @@ The project is built with a **mobile-first approach**, featuring a dynamic video
 
 ## 📂 Project Structure
 
-```text
+~~~
 github-explorer/
 │
 ├── index.html       # Main application file
 ├── style.css        # Custom styles (Glassmorphism & Video)
 ├── script.js        # Logic for API calls and UI updates
 └── background.mp4  # Background video file
+~~~
+
+
+Developed with ❤️ by Pranay Kumar Sharma
